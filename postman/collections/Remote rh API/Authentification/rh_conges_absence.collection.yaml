@@ -1,0 +1,349 @@
+info:
+  name: Remonte RH - Congés & Absences
+  description: |
+    Collection pour tester les API de gestion des congés et absences.
+    Endpoints couverts :
+    - Authentification (login / refresh)
+    - Créer un type de congé avant une demande
+    - Demandes d'absence (DemandeAbsence)
+    - Soldes de congé (SoldeConge)
+    - Types de congé (TypeConge)
+  schema: https://schema.getpostman.com/json/collection/v2.1.0/collection.json
+variable:
+  - id: base_url
+    value: http://localhost:8000
+  - id: token
+    value: ''
+item:
+  - name: Authentification
+    item:
+      - name: Login (obtenir JWT)
+        request:
+          method: POST
+          header:
+            - key: Content-Type
+              value: application/json
+          url: '{{base_url}}/api/auth/login/'
+          body:
+            mode: raw
+            raw: |
+              {
+                "email": "admin.rh@example.com",
+                "password": "SecurePassword123!"
+              }
+        event:
+          - listen: test
+            script:
+              exec:
+                - 'pm.test("Status is 200", function () {'
+                - '  pm.response.to.have.status(200);'
+                - '});'
+                - 'pm.test("Access token present", function () {'
+                - '  var json = pm.response.json();'
+                - '  pm.expect(json.access).to.exist;'
+                - '  pm.environment.set("token", json.access);'
+                - '  pm.environment.set("employe_id", json.user.id);'
+                - '});'
+      - name: Refresh token
+        request:
+          method: POST
+          header:
+            - key: Content-Type
+              value: application/json
+          url: '{{base_url}}/api/auth/refresh/'
+          body:
+            mode: raw
+            raw: |
+              {
+                "refresh": "{{refresh_token}}"
+              }
+
+  - name: Demandes d'absence (DemandeAbsence)
+    item:
+      - name: Lister les demandes d'absence
+        request:
+          method: GET
+          header:
+            - key: Authorization
+              value: Bearer {{token}}
+          url: '{{base_url}}/api/demandes-absence/'
+        event:
+          - listen: test
+            script:
+              exec:
+                - 'pm.test("Status is 200", function () {'
+                - '  pm.response.to.have.status(200);'
+                - '});'
+
+      - name: Créer une demande d'absence
+        request:
+          method: POST
+          header:
+            - key: Content-Type
+              value: application/json
+            - key: Authorization
+              value: Bearer {{token}}
+          url: '{{base_url}}/api/demandes-absence/'
+          body:
+            mode: raw
+            raw: |
+              {
+                "type_conge": {{type_conge_id}},
+                "date_debut": "2026-11-02",
+                "date_fin": "2026-11-06",
+                "motif": "Vacances d'été"
+              }
+        event:
+          - listen: test
+            script:
+              exec:
+                - 'pm.test("Status is 201", function () {'
+                - '  pm.response.to.have.status(201);'
+                - '});'
+                - 'pm.test("Demande créée", function () {'
+                - '  var json = pm.response.json();'
+                - '  pm.expect(json.id).to.exist;'
+                - '  pm.environment.set("demande_absence_id", json.id);'
+                - '});'
+
+      - name: Détail d'une demande d'absence
+        request:
+          method: GET
+          header:
+            - key: Authorization
+              value: Bearer {{token}}
+          url: '{{base_url}}/api/demandes-absence/{{demande_absence_id}}/'
+        event:
+          - listen: test
+            script:
+              exec:
+                - 'pm.test("Status is 200", function () {'
+                - '  pm.response.to.have.status(200);'
+                - '});'
+
+      - name: Mettre à jour une demande d'absence
+        request:
+          method: PUT
+          header:
+            - key: Content-Type
+              value: application/json
+            - key: Authorization
+              value: Bearer {{token}}
+          url: '{{base_url}}/api/demandes-absence/{{demande_absence_id}}/'
+          body:
+            mode: raw
+            raw: |
+              {
+                "type_conge": {{type_conge_id}},
+                "date_debut": "2026-11-02",
+                "date_fin": "2026-11-09",
+                "motif": "Vacances modifiées"
+              }
+        event:
+          - listen: test
+            script:
+              exec:
+                - 'pm.test("Status is 200", function () {'
+                - '  pm.response.to.have.status(200);'
+                - '});'
+
+      - name: Valider une demande d'absence (permission update)
+        request:
+          method: POST
+          header:
+            - key: Authorization
+              value: Bearer {{token}}
+          url: '{{base_url}}/api/demandes-absence/{{demande_absence_id}}/valider/'
+        event:
+          - listen: test
+            script:
+              exec:
+                - 'pm.test("Status is 200", function () {'
+                - '  pm.response.to.have.status(200);'
+                - '});'
+                - 'pm.test("Demande validée", function () {'
+                - '  pm.expect(pm.response.json().statut).to.equal("VALIDEE");'
+                - '});'
+
+      - name: Refuser une demande d'absence (permission update)
+        request:
+          method: POST
+          header:
+            - key: Authorization
+              value: Bearer {{token}}
+          url: '{{base_url}}/api/demandes-absence/{{demande_absence_id}}/refuser/'
+        event:
+          - listen: test
+            script:
+              exec:
+                - 'pm.test("Status is 200", function () {'
+                - '  pm.response.to.have.status(200);'
+                - '});'
+                - 'pm.test("Demande refusée", function () {'
+                - '  pm.expect(pm.response.json().statut).to.equal("REFUSEE");'
+                - '});'
+
+      - name: Supprimer une demande d'absence
+        request:
+          method: DELETE
+          header:
+            - key: Authorization
+              value: Bearer {{token}}
+          url: '{{base_url}}/api/demandes-absence/{{demande_absence_id}}/'
+        event:
+          - listen: test
+            script:
+              exec:
+                - 'pm.test("Status is 204", function () {'
+                - '  pm.response.to.have.status(204);'
+                - '});'
+
+  - name: Soldes de congé (SoldeConge)
+    item:
+      - name: Lister les soldes de congé
+        request:
+          method: GET
+          header:
+            - key: Authorization
+              value: Bearer {{token}}
+          url: '{{base_url}}/api/soldes-conge/?annee=2026'
+        event:
+          - listen: test
+            script:
+              exec:
+                - 'pm.test("Status is 200", function () {'
+                - '  pm.response.to.have.status(200);'
+                - '});'
+
+      - name: Créer un solde de congé
+        request:
+          method: POST
+          header:
+            - key: Content-Type
+              value: application/json
+            - key: Authorization
+              value: Bearer {{token}}
+          url: '{{base_url}}/api/soldes-conge/'
+          body:
+            mode: raw
+            raw: |
+              {
+                "employe": {{employe_id}},
+                "type_conge": {{type_conge_id}},
+                "annee": 2026,
+                "acquis": 25
+              }
+        event:
+          - listen: test
+            script:
+              exec:
+                - 'pm.test("Status is 201", function () {'
+                - '  pm.response.to.have.status(201);'
+                - '});'
+
+  - name: Types de congé (TypeConge)
+    item:
+      - name: Lister les types de congé
+        request:
+          method: GET
+          header:
+            - key: Authorization
+              value: Bearer {{token}}
+          url: '{{base_url}}/api/conges/types/'
+        event:
+          - listen: test
+            script:
+              exec:
+                - 'pm.test("Status is 200", function () {'
+                - '  pm.response.to.have.status(200);'
+                - '});'
+
+      - name: Créer un type de congé
+        request:
+          method: POST
+          header:
+            - key: Content-Type
+              value: application/json
+            - key: Authorization
+              value: Bearer {{token}}
+          url: '{{base_url}}/api/conges/types/'
+          body:
+            mode: raw
+            raw: |
+              {
+                "code": "CP",
+                "libelle": "Congés payés",
+                "jours_par_annee": 25,
+                "est_payant": true,
+                "actif": true
+              }
+        event:
+          - listen: test
+            script:
+              exec:
+                - 'pm.test("Status is 201", function () {'
+                - '  pm.response.to.have.status(201);'
+                - '});'
+                - 'pm.test("Type créé", function () {'
+                - '  var json = pm.response.json();'
+                - '  pm.expect(json.id).to.exist;'
+                - '  pm.environment.set("type_conge_id", json.id);'
+                - '});'
+
+      - name: Détail d'un type de congé
+        request:
+          method: GET
+          header:
+            - key: Authorization
+              value: Bearer {{token}}
+          url: '{{base_url}}/api/conges/types/{{type_conge_id}}/'
+        event:
+          - listen: test
+            script:
+              exec:
+                - 'pm.test("Status is 200", function () {'
+                - '  pm.response.to.have.status(200);'
+                - '});'
+
+      - name: Mettre à jour un type de congé
+        request:
+          method: PUT
+          header:
+            - key: Content-Type
+              value: application/json
+            - key: Authorization
+              value: Bearer {{token}}
+          url: '{{base_url}}/api/conges/types/{{type_conge_id}}/'
+          body:
+            mode: raw
+            raw: |
+              {
+                "code": "CP",
+                "libelle": "Congés payés",
+                "jours_par_annee": 30,
+                "est_payant": true,
+                "actif": true
+              }
+        event:
+          - listen: test
+            script:
+              exec:
+                - 'pm.test("Status is 200", function () {'
+                - '  pm.response.to.have.status(200);'
+                - '});'
+
+      - name: Supprimer un type de congé
+        request:
+          method: DELETE
+          header:
+            - key: Authorization
+              value: Bearer {{token}}
+          url: '{{base_url}}/api/conges/types/{{type_conge_id}}/'
+        event:
+          - listen: test
+            script:
+              exec:
+                - 'pm.test("Status is 204", function () {'
+                - '  pm.response.to.have.status(204);'
+                - '});'
+

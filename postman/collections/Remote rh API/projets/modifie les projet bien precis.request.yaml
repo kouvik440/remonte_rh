@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{Base_url}} /api/projets/{projet_id}/"
+method: PUT
+headers:
+  Authorization: "{{token}}"
+order: 5000

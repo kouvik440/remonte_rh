@@ -1,0 +1,9 @@
+$kind: http-request
+url: "{{Base_url}}/api/conges/types/{type_conge_id}/"
+method: PUT
+headers:
+  Authorization: Bearer {{token}}
+body:
+  type: json
+  content: ""
+order: 3000

@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{Base_url}}/api/contrats/"
+method: GET
+headers:
+  Authorization: "{{token}}"
+order: 1000

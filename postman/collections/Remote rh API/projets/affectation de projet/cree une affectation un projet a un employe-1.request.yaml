@@ -1,0 +1,10 @@
+$kind: http-request
+name: cree une affectation un projet a un employe
+url: "{{Base_url}} /api/projets/{projet_id}/affectations/{employe_id}/"
+method: POST
+headers:
+  Authorization: "{{token}}"
+body:
+  type: json
+  content: "{\r\n  \"employe\": 10\r\n}"
+order: 2274

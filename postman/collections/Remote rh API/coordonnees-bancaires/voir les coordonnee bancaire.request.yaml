@@ -1,0 +1,7 @@
+$kind: http-request
+url: "{{Base_url}}/api/conges/types/"
+method: GET
+headers:
+  Authorization: "{{token}}"
+  Content-Type: application/json
+order: 1000

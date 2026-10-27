@@ -1,0 +1,9 @@
+$kind: http-request
+url: "{{Base_url}} /api/analyses/tgm/?periode_debut=2026-10&periode_fin=2026-10"
+method: GET
+headers:
+  Authorization: "{{token}}"
+queryParams:
+  periode_debut: 2026-10
+  periode_fin: 2026-10
+order: 1000

@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "skills": {
+    "design-taste-frontend": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "skillPath": "skills/taste-skill/SKILL.md",
+      "computedHash": "53590ee9325bee34d7888bf0d81bd3941a108b1e7850df46802d93104e3f2b90"
+    },
+    "fix-types": {
+      "source": "saaspegasus/django-skills",
+      "sourceType": "github",
+      "skillPath": "skills/fix-types/SKILL.md",
+      "computedHash": "496e88a44903f160df1e487c4be1c03cc7b518b0c88f71f2723d0d0d7cedb604"
+    },
+    "upgrade-js-deps": {
+      "source": "saaspegasus/django-skills",
+      "sourceType": "github",
+      "skillPath": "skills/upgrade-js-deps/SKILL.md",
+      "computedHash": "71a3e0dc916a33a054fc1fe245f444118b6b629a34603f9e63d9055437e40aad"
+    }
+  }
+}

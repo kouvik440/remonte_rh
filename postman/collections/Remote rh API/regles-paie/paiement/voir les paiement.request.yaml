@@ -1,0 +1,17 @@
+$kind: http-request
+url: "{{Base_url}}/api/paiements/"
+method: GET
+headers:
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "type_conge": {{type_conge_id}},
+      "date_debut": "2026-11-02",
+      "date_fin": "2026-11-06",
+      "motif": "Congés annuels"
+    }
+examples: .resources/voir les paiement.resources/examples
+order: 1000

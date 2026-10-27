@@ -1,0 +1,6 @@
+$kind: http-request
+url: ""
+method: GET
+headers:
+  Authorization: "{{token}}"
+order: 1000

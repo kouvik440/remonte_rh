@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{Base_url}}/api/regles-paie/{regle_id}/"
+method: PUT
+headers:
+  Authorization: "{{token}}"
+order: 4000

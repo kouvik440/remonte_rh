@@ -1,0 +1,135 @@
+/* Shared theme controls; dark surfaces follow the same hierarchy as the light UI. */
+:root { color-scheme: light; }
+#root { width: 100%; }
+.login-field-checkbox { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.login-field-checkbox input { width: 17px; height: 17px; flex: 0 0 17px; margin: 0; padding: 0; }
+.login-field-checkbox label { margin: 0; color: #475368; cursor: pointer; }
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  min-height: 44px;
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--app-line);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--app-ink);
+  font: 500 13px/20px "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+}
+.theme-toggle:hover { background: var(--app-line); transform: none; }
+.theme-toggle:focus-visible { outline: 2px solid var(--app-ink); outline-offset: 3px; }
+.theme-toggle svg { flex: 0 0 18px; }
+.sidebar-bottom > .theme-toggle { width: 100%; margin-bottom: 10px; }
+.theme-toggle-track { display: flex; align-items: center; width: 30px; height: 18px; margin-left: auto; padding: 3px; border-radius: 20px; background: #d5d9dc; }
+.theme-toggle-track > span { width: 12px; height: 12px; border-radius: 50%; background: #555e64; }
+.theme-toggle[aria-checked="true"] .theme-toggle-track { background: #6b747d; }
+.theme-toggle[aria-checked="true"] .theme-toggle-track > span { margin-left: auto; background: #fff; }
+.mobile-appbar > .theme-toggle-compact { flex: 0 0 44px; width: 44px; padding: 0; justify-content: center; margin-left: auto; }
+.theme-toggle-compact > span { display: none; }
+.mobile-appbar .navigation-toggle { margin-left: 0; }
+.login-theme-control { display: flex; justify-content: flex-end; width: min(440px, 100%); margin-bottom: 16px; }
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  background: #111111;
+  --app-bg: #111111;
+  --app-sidebar: #161616;
+  --app-ink: #ededee;
+  --app-muted: #b6b6bc;
+  --app-line: #343438;
+  --app-blue: #e6e6e9;
+  --night-surface: #1c1c1e;
+  --night-raised: #262629;
+  --night-control: #4b4b50;
+  --night-input: #222225;
+  --ui-background: #1c1c1e;
+  --ui-foreground: #ededee;
+  --ui-primary: #e6e6e9;
+  --ui-primary-foreground: #171719;
+  --ui-secondary: #29292d;
+  --ui-secondary-foreground: #ededee;
+  --ui-muted: #262629;
+  --ui-muted-foreground: #b6b6bc;
+  --ui-border: #3b3b40;
+  --ui-ring: #b9c8e9;
+  --ui-destructive: #ffaaa2;
+}
+:root[data-theme="dark"] body { background: var(--app-bg); color: var(--app-ink); }
+:root[data-theme="dark"] .hr-app { --workspace-surface: var(--night-surface); --workspace-active: #303034; --workspace-control: var(--night-control); }
+:root[data-theme="dark"] :is(.content-card, .timesheet-panel, .tgm-panel, .mass-panel, .personal-payslip-card, .role-card, .leave-request-card, .leave-balance-card, .leave-type-card, .module-three-record, .form-dialog, .leave-detail-dialog, .delete-confirmation, .calendar-day, .employee-table-wrap, .stats-grid) {
+  background: var(--night-surface);
+  color: var(--app-ink);
+  border-color: var(--app-line);
+  box-shadow: none;
+}
+:root[data-theme="dark"] :is(h1, h2, h3, h4, legend, dt, summary) { color: var(--app-ink); }
+:root[data-theme="dark"] :is(.person-detail strong, .balance-numbers strong, .form-section-title strong, .role-checkbox-copy strong, .directory-empty strong, .stat-card strong, .calendar-day strong) { color: var(--app-ink); }
+:root[data-theme="dark"] :is(.page-description, .card-heading p, .sidebar-caption, .sidebar-brand small, .brand-monogram span, .nav-item svg, .account-profile-link, .mobile-page-name, .person-detail small, .employee-id, .role-text, .stat-label, .stat-card small, .filter-field, .directory-summary, .role-count, .role-title p, .role-no-permissions, .leave-state, .directory-empty, .directory-empty p, .field-hint, .form-section-title small, .role-checkbox-copy small, .leave-request-main p, .leave-request-main .leave-request-meta, .leave-type-card p, .balance-numbers small, .leave-balance-card > span, .calendar-weekdays span, .calendar-events small, .planning-notice, .planning-no-event, .timesheet-note, .tgm-note, .tgm-simulation-results dt, .mass-note, .mass-metrics dt, .employee-history-values dt, .leave-management .balance-numbers dt, .app-footer) { color: var(--app-muted); }
+:root[data-theme="dark"] .hr-app :is(label, .form-field, .form-field label, .role-permission-fieldset .permission-option strong, .role-permission-fieldset .permission-option code) { color: var(--app-ink); }
+:root[data-theme="dark"] :is(.mass-panel, .timesheet-panel, .tgm-panel) [data-slot="card-description"] { color: var(--app-muted); }
+:root[data-theme="dark"] .nav-item { color: var(--app-muted); }
+:root[data-theme="dark"] .nav-item.active { color: var(--app-ink); background: #303034; }
+:root[data-theme="dark"] :is(.nav-item:hover, .icon-button:hover, .row-icon-button:hover) { color: var(--app-ink); background: var(--night-raised); }
+:root[data-theme="dark"] :is(.icon-button, .row-icon-button, .sidebar-logout, .account-profile-link:hover) { color: var(--app-muted); }
+:root[data-theme="dark"] .hr-app :is(input, select, textarea) { color: var(--app-ink); background-color: var(--night-input); border-color: var(--night-control); }
+:root[data-theme="dark"] :is(.search-field, .filter-field select, .mass-select-trigger) { color: var(--app-ink); background: var(--night-input); border-color: var(--night-control); }
+:root[data-theme="dark"] .search-field input { background: transparent; }
+:root[data-theme="dark"] :is(input, textarea)::placeholder { color: #b1b1b8; }
+:root[data-theme="dark"] .hr-app :is(a, button, input, select, textarea, summary):focus-visible { outline-color: #b9c8e9; }
+:root[data-theme="dark"] .primary-button { color: #171719; border-color: #e6e6e9; background: #e6e6e9; }
+:root[data-theme="dark"] .primary-button:hover { color: #171719; background: #fff; border-color: #fff; }
+:root[data-theme="dark"] .outline-button { color: var(--app-ink); background: var(--night-raised); border-color: var(--night-control); }
+:root[data-theme="dark"] .outline-button:hover { background: #333338; border-color: #76767e; }
+:root[data-theme="dark"] .danger-button { color: #ffb0a9; background: #352020; border-color: #7d4440; }
+:root[data-theme="dark"] .danger-button:hover { background: #472725; }
+:root[data-theme="dark"] :is(.employee-table, [data-slot="table"], .mass-data-table) { color: var(--app-ink); }
+:root[data-theme="dark"] .employee-table :is(th, td) { border-color: var(--app-line); }
+:root[data-theme="dark"] .employee-table :is(th, th:first-child, td:first-child) { color: var(--app-ink); background: var(--night-surface); }
+:root[data-theme="dark"] .employee-table tbody tr:hover { background: var(--night-raised); }
+:root[data-theme="dark"] :is(.mass-data-table thead th, .mass-data-table tbody th) { color: var(--app-ink); background: var(--night-raised); }
+:root[data-theme="dark"] :is(.mass-data-table th, .mass-data-table td, [data-slot="table-row"], .mass-panel [data-slot="table-container"]) { border-color: var(--app-line); }
+:root[data-theme="dark"] :is(.mass-data-table caption, .tgm-panel caption) { color: var(--app-muted); }
+:root[data-theme="dark"] :is(.employee-table .person-avatar, .user-avatar, .role-avatar) { color: #d3e5df; background: #2d3d37; }
+:root[data-theme="dark"] :is(.permission-tag, .role-selection-count, .form-section-title > span, .type-code) { color: #d4d8e2; background: #303039; }
+:root[data-theme="dark"] :is(.role-checkbox, .role-checkbox.selected, .role-checkbox:hover, .permission-option, .timesheet-line-editor, .employee-history-event, .timesheet-item, .planning-people-group, .module-three-people) { color: var(--app-ink); background: var(--night-surface); border-color: var(--app-line); box-shadow: none; }
+:root[data-theme="dark"] .role-checkbox.selected { background: #2a2e36; border-color: #8c9cb8; }
+:root[data-theme="dark"] :is(.form-footer, .editor-heading, .role-actions, .role-permission-tags, .timesheet-tabs, .timesheet-simple-list li, .tgm-project, .planning-roster, .planning-people-list > li, .module-tabs) { border-color: var(--app-line); }
+:root[data-theme="dark"] :is(.employee-editor .form-footer, .dialog-heading) { background: var(--night-surface); }
+:root[data-theme="dark"] .module-tabs button { color: var(--app-muted); }
+:root[data-theme="dark"] .module-tabs button.active { color: var(--app-ink); border-bottom-color: var(--app-ink); }
+:root[data-theme="dark"] .timesheet-tab { color: var(--app-muted); background: var(--night-surface); border-color: var(--night-control); }
+:root[data-theme="dark"] .timesheet-tab.active { color: var(--app-ink); background: #35353b; border-color: #888892; }
+:root[data-theme="dark"] .hr-app .message-box { color: #dedee3; background: #28282e; border-color: #474750; }
+:root[data-theme="dark"] :is(.hr-app .message-box.error, .planning-error) { color: #ffb9b2; background: #352120; border-color: #7d4440; }
+:root[data-theme="dark"] .hr-app .message-box.success { color: #b9e8c9; background: #203127; border-color: #426b4e; }
+:root[data-theme="dark"] .hr-app .field-error { color: #ffb0a9; }
+:root[data-theme="dark"] :is(.status-badge, .timesheet-status, .leave-status, .type-active:not(.is-active)) { color: #d5d5dd; background: #33333a; }
+:root[data-theme="dark"] :is(.status-active, .status-validee, .timesheet-status.status-validee, .payroll-status-validee, .payroll-status-paye, .type-active.is-active) { color: #b2e3c4; background: #203b2c; }
+:root[data-theme="dark"] :is(.status-en_attente, .status-suspended, .timesheet-status.status-soumise) { color: #f0dba2; background: #3d3320; }
+:root[data-theme="dark"] :is(.status-refusee, .status-annulee, .payroll-status-annule, .absence-event) { color: #ffb9b2; background: #442826; }
+:root[data-theme="dark"] :is(.payroll-status-calcule, .presence-event) { color: #c3d6ff; background: #29364d; }
+:root[data-theme="dark"] :is(.payroll-contract-preview, .calendar-day-empty, .planning-day-selected) { color: var(--app-ink); background: #25252c; border-color: var(--app-line); }
+:root[data-theme="dark"] :is(.calendar-day, .calendar-day:nth-child(7n)) { border-color: var(--app-line); }
+:root[data-theme="dark"] .balance-track { background: #37373d; }
+:root[data-theme="dark"] .balance-track span { background: #91a6cf; }
+:root[data-theme="dark"] .mass-select-popup { color: var(--app-ink); background: var(--night-raised); border-color: var(--night-control); }
+:root[data-theme="dark"] .mass-select-popup [data-slot="select-item"][data-highlighted] { background: #3a3a41; }
+:root[data-theme="dark"] .mass-chart svg { fill: var(--app-muted); }
+:root[data-theme="dark"] .mass-chart-grid { stroke: #48484e; }
+:root[data-theme="dark"] .mass-bar-validated { fill: #94ade1; }
+:root[data-theme="dark"] .mass-bar-paid { fill: #7fc69a; }
+:root[data-theme="dark"] .login-page { color: var(--app-ink); background: var(--app-bg); }
+:root[data-theme="dark"] .login-intro { background: #171719; }
+:root[data-theme="dark"] .login-content { background: var(--app-bg); }
+:root[data-theme="dark"] .login-card { color: var(--app-ink); background: var(--night-surface); border-color: var(--app-line); box-shadow: none; }
+:root[data-theme="dark"] .login-heading h2 { color: var(--app-ink); }
+:root[data-theme="dark"] :is(.login-heading > p:last-child, .login-field label, .login-field-checkbox label, .login-footer, .login-security, .login-intro-copy p, .login-intro-footer) { color: var(--app-muted); }
+:root[data-theme="dark"] .login-eyebrow { color: #d7d7e1; background: #303039; }
+:root[data-theme="dark"] .login-field input { color: var(--app-ink); background: var(--night-input); border-color: var(--night-control); }
+:root[data-theme="dark"] .login-submit { color: #171719; background: #e6e6e9; border-color: #e6e6e9; box-shadow: none; }
+:root[data-theme="dark"] .login-submit:hover { background: #fff; }
+:root[data-theme="dark"] .password-toggle { color: #c9d5ef; }
+:root[data-theme="dark"] .login-message { color: #ffb9b2; background: #352120; border-color: #7d4440; }

@@ -1,0 +1,5 @@
+$kind: http-request
+url: "{{Base_url}}/api/paiements/"
+method: POST
+examples: .resources/cree un paiement.resources/examples
+order: 2000

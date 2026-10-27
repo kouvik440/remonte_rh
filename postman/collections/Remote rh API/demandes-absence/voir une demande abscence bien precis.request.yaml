@@ -1,0 +1,7 @@
+$kind: http-request
+url: "{{Base_url}}/api/demandes-absence/{{demande_absence_id}}/"
+method: GET
+headers:
+  Authorization: "Bearer {{token}}"
+examples: .resources/voir une demande abscence bien precis.resources/examples
+order: 3000

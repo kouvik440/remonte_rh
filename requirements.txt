@@ -1,0 +1,9 @@
+Django==4.2.30
+django-cors-headers==4.9.0
+djangorestframework==3.16.1
+djangorestframework-simplejwt==5.5.1
+drf-spectacular==0.30.0
+psycopg2-binary==2.9.12
+cryptography>=44,<46
+reportlab>=4.2,<5
+num2words>=0.5.14,<0.6

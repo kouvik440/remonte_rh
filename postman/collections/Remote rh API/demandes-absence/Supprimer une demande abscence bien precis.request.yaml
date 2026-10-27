@@ -1,0 +1,7 @@
+$kind: http-request
+url: "{{Base_url}}/api/demandes-absence/{{demande_absence_id}}/"
+method: DELETE
+headers:
+  Authorization: "Bearer {{token}}"
+examples: .resources/Supprimer une demande abscence bien precis.resources/examples
+order: 6000

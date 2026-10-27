@@ -1,0 +1,38 @@
+# Environnements et dépendances installés localement
+venv/
+.venv/
+env/
+ENV/
+node_modules/
+
+# Compilation frontend
+frontend/dist/
+
+# Caches Python et outils de vérification
+__pycache__/
+*.py[cod]
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Configuration locale et données de développement
+.env
+.env.*
+!.env.example
+!.env.sample
+*.sqlite3
+*.sqlite3-*
+*.log
+private_payroll_files/
+
+# Fichiers temporaires, recettes locales et sessions d'assistant
+/tmp/
+/output/
+/.taste-skill/
+/.aider-desk/
+
+# Fichiers du système
+.DS_Store
+Thumbs.db

@@ -1,0 +1,19 @@
+$kind: http-request
+url: "{{Base_url}}/api/roles/7/"
+method: PUT
+headers:
+  Authorization: "{{token}}"
+body:
+  type: json
+  content: "    {\r
+
+    \        \"nom\": \"ADMIN_RH\",\r
+
+    \        \"permissions\": [\r
+
+    \            76\r
+
+    \        ]\r
+
+    \    }"
+order: 3000

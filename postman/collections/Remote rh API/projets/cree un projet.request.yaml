@@ -1,0 +1,23 @@
+$kind: http-request
+url: "{{Base_url}} /api/projets/"
+method: POST
+headers:
+  Authorization: "{{token}}"
+body:
+  type: json
+  content: "{\r
+
+    \  \"code\": \"PROJ-001\",\r
+
+    \  \"nom\": \"Projet de démonstration\",\r
+
+    \  \"description\": \"Projet pour tester le module 7\",\r
+
+    \  \"date_debut\": \"2026-10-01\",\r
+
+    \  \"date_fin\": \"2026-12-31\",\r
+
+    \  \"actif\": true\r
+
+    }"
+order: 2000

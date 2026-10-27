@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{Base_url}}api/ordres-virement/1/rejeter/"
+method: POST
+headers:
+  Authorization: "{{token}}"
+body:
+  type: json
+  content: "{\r
+
+    \  \"motif\": \"Test de rejet\"\r
+
+    }"
+examples: .resources/annuler un ordr de virement.resources/examples
+order: 3000

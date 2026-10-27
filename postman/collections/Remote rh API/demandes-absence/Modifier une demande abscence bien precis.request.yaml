@@ -1,0 +1,29 @@
+$kind: http-request
+url: "{{Base_url}}/api/demandes-absence/1/"
+method: PUT
+headers:
+  Authorization: "{{token}}"
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+        "id": 2,
+        "type_conge": 1,
+        "type_conge_code": "CONG_PAY",
+        "type_conge_libelle": "Congé payé",
+        "date_debut": "2026-11-02",
+        "date_fin": "2026-11-06",
+        "motif": "Congés annuels",
+        "statut": "EN_ATTENTE",
+        "date_demande": "2026-10-18T14:43:24.718673Z",
+        "date_validation": null,
+        "valideur": null,
+        "employe": 12
+    }
+auth:
+  type: bearer
+  credentials:
+    token: "{{token}}"
+examples: .resources/Modifier une demande abscence bien precis.resources/examples
+order: 5000

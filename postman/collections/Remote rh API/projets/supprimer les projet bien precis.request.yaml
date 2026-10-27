@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{Base_url}} /api/projets/{projet_id}/"
+method: DELETE
+headers:
+  Authorization: "{{token}}"
+order: 6000

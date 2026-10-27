@@ -1,0 +1,27 @@
+$kind: http-request
+url: "{{Base_url}}/api/soldes-conge/"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: "Bearer {{token}}"
+body:
+  type: json
+  content: |-
+    {
+      "employe": {{employe_id}},
+      "type_conge": {{type_conge_id}},
+      "annee": 2026,
+      "acquis": 25
+    }
+scripts:
+  - type: afterResponse
+    code: |
+      pm.test("Status code is 201", function () {
+          pm.response.to.have.status(201);
+      });
+
+      pm.test("Balance was created", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData).to.have.property('id');
+      });
+order: 3000

@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{Base_url}}/api/ordres-virement/{ordre_virement_id}/traiter/"
+method: POST
+headers:
+  Authorization: Bearer {{token}}
+order: 8822

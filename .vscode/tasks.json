@@ -1,0 +1,29 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run frontend on port 3000",
+			"type": "shell",
+			"command": ".\\venv\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"http.server",
+				"3000",
+				"--directory",
+				"frontend"
+			],
+			"isBackground": true
+		},
+		{
+			"label": "Run Django backend on port 8000",
+			"type": "shell",
+			"command": ".\\venv\\Scripts\\python.exe",
+			"args": [
+				"manage.py",
+				"runserver",
+				"8000"
+			],
+			"isBackground": true
+		}
+	]
+}

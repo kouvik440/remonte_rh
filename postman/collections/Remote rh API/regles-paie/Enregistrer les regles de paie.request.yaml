@@ -1,0 +1,65 @@
+$kind: http-request
+url: "{{Base_url}}/api/regles-paie/"
+method: POST
+headers:
+  token: "{{token}}"
+body:
+  type: json
+  content: "{\r
+
+    \  \"code\": \"TEST-BF-2026\",\r
+
+    \  \"nom\": \"Profil fictif de test\",\r
+
+    \  \"pays\": \"BF\",\r
+
+    \  \"devise\": \"XOF\",\r
+
+    \  \"date_debut\": \"2026-01-01\",\r
+
+    \  \"date_fin\": null,\r
+
+    \  \"actif\": true,\r
+
+    \  \"heures_mensuelles\": \"173.33\",\r
+
+    \  \"jours_ouvres_semaine\": 5,\r
+
+    \  \"decimales_montant\": 0,\r
+
+    \  \"plafond_cnss\": \"800000\",\r
+
+    \  \"taux_cnss_salarial\": \"0.05\",\r
+
+    \  \"taux_cnss_patronal\": \"0.16\",\r
+
+    \  \"taux_tpa_patronal\": \"0.03\",\r
+
+    \  \"abattement_professionnel\": \"0.20\",\r
+
+    \  \"plafond_deduction_retraite\": \"0.08\",\r
+
+    \  \"tranches_iuts\": [\r
+
+    \    {\"minimum\": \"0\", \"maximum\": \"100000\", \"taux\": \"0\"},\r
+
+    \    {\"minimum\": \"100000\", \"maximum\": null, \"taux\": \"0.10\"}\r
+
+    \  ],\r
+
+    \  \"reductions_iuts_charges\": [\r
+
+    \    {\"charges\": 1, \"taux\": \"0.08\"}\r
+
+    \  ],\r
+
+    \  \"est_fictif\": true,\r
+
+    \  \"source_reference\": \"\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: ""
+order: 2000

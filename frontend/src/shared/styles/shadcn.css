@@ -1,0 +1,51 @@
+/* Les écrans existants gardent leurs styles de base pendant l'adoption progressive. */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Les variables ui évitent les collisions avec --primary, --card et --muted existants. */
+:root {
+  --ui-background: #ffffff;
+  --ui-foreground: #172033;
+  --ui-primary: #285fc4;
+  --ui-primary-foreground: #ffffff;
+  --ui-secondary: #edf2fa;
+  --ui-secondary-foreground: #25324a;
+  --ui-muted: #f4f6fa;
+  --ui-muted-foreground: #586477;
+  --ui-border: #dce2eb;
+  --ui-ring: #285fc4;
+  --ui-destructive: #b42318;
+  --ui-radius: 0.5rem;
+}
+
+@theme inline {
+  --color-background: var(--ui-background);
+  --color-foreground: var(--ui-foreground);
+  --color-card: var(--ui-background);
+  --color-card-foreground: var(--ui-foreground);
+  --color-popover: var(--ui-background);
+  --color-popover-foreground: var(--ui-foreground);
+  --color-primary: var(--ui-primary);
+  --color-primary-foreground: var(--ui-primary-foreground);
+  --color-secondary: var(--ui-secondary);
+  --color-secondary-foreground: var(--ui-secondary-foreground);
+  --color-muted: var(--ui-muted);
+  --color-muted-foreground: var(--ui-muted-foreground);
+  --color-accent: var(--ui-secondary);
+  --color-accent-foreground: var(--ui-secondary-foreground);
+  --color-destructive: var(--ui-destructive);
+  --color-destructive-foreground: #ffffff;
+  --color-border: var(--ui-border);
+  --color-input: var(--ui-border);
+  --color-ring: var(--ui-ring);
+  --radius-sm: calc(var(--ui-radius) - 4px);
+  --radius-md: calc(var(--ui-radius) - 2px);
+  --radius-lg: var(--ui-radius);
+  --radius-xl: calc(var(--ui-radius) + 4px);
+}
+

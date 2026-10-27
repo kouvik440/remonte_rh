@@ -1,0 +1,27 @@
+$kind: http-request
+url: "{{Base_url}}/api/employes/"
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: "{{token}}"
+body:
+  type: json
+  content: |-
+    {
+      "matricule": "amandine",
+      "email": "amandine@gmail.com",
+      "nom": "amandine",
+      "prenom": "amandine",
+      "password": "123456789",
+      "date_naissance": "1990-01-01",
+      "adresse": "Adresse admin",
+      "telephone": "0600000000",
+      "num_secu_sociale": "000amandine",
+      "date_entree": "2024-01-01",
+      "date_sortie": null,
+      "statut": "ACTIF",
+      "is_active": true,
+      "department": null,
+      "roles": [9]
+    }
+order: 2000

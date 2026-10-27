@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{Base_url}}/api/conges/types/{type_conge_id}/"
+method: GET
+headers:
+  Authorization: "{{token}}"
+order: 4000

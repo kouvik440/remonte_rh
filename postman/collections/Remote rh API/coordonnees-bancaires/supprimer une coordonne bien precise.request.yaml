@@ -1,0 +1,20 @@
+$kind: http-request
+url: "{{Base_url}}/api/conges/types/{type_conge_id}/"
+method: DELETE
+headers:
+  Authorization: "{{token}}"
+  Content-Type: application/json
+body:
+  type: json
+  content: "{\r
+
+    \  \"type_conge_id\": 1,\r
+
+    \  \"date_debut\": \"2026-11-02\",\r
+
+    \  \"date_fin\": \"2026-11-06\",\r
+
+    \  \"motif\": \"Congés annuels\"\r
+
+    }"
+order: 5000

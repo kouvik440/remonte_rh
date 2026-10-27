@@ -1,0 +1,25 @@
+$kind: http-request
+name: ""
+url: http://127.0.0.1:8000/api/employes/
+method: POST
+headers:
+  - key: Authorization
+    value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzkxODQyMDg0LCJpYXQiOjE3OTE4Mzg0ODUsImp0aSI6ImU5OTFiNzA3NzdjZTRkOGNhOGRjNjhlZDRjNWNiODYxIiwidXNlcl9pZCI6IjEifQ.mglI7bJBR8tnB9x7GZ402FvwQpNLFU1IEXHoWGjJQys
+    disabled: false
+    description: t
+body:
+  type: json
+  content: |-
+    {
+        "matricule": "nom",
+        "nom": "Dupont",
+        "prenom": "Jean",
+        "email": "postman@gmail.com",
+        "date_naissance": "1990-01-01",
+        "adresse": "123 rue de Paris",
+        "telephone": "0601020304",
+        "num_secu_sociale": "190011234567890",
+        "date_entree": "2026-10-01",
+        "password": "SecurePassword123"
+    }
+order: 1000

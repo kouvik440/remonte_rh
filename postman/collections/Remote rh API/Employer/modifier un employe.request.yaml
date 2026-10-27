@@ -1,0 +1,53 @@
+$kind: http-request
+url: "{{Base_url}}/api/employes/11/"
+method: PUT
+headers:
+  Authorization: "{{token}}"
+body:
+  type: json
+  content: "[\r
+
+    \    \r
+
+    \       {\r
+
+    \        \"id\": 11,\r
+
+    \        \"matricule\": \"teste\",\r
+
+    \        \"email\": \"k@gmail.com\",\r
+
+    \        \"nom\": \"Admin\",\r
+
+    \        \"prenom\": \"RH\",\r
+
+    \        \"date_naissance\": \"1990-01-01\",\r
+
+    \        \"adresse\": \"Adresse admin\",\r
+
+    \        \"telephone\": \"0600000000\",\r
+
+    \        \"num_secu_sociale\": \"00000000000\",\r
+
+    \        \"date_entree\": \"2024-01-01\",\r
+
+    \        \"date_sortie\": null,\r
+
+    \        \"statut\": \"ACTIF\",\r
+
+    \        \"is_active\": true,\r
+
+    \        \"last_login\": null,\r
+
+    \        \"department\": null,\r
+
+    \        \"roles\": [7]\r
+
+    \    \r
+
+    \    }\r
+
+    \   \r
+
+    ]"
+order: 4000

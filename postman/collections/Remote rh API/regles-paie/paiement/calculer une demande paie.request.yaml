@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{Base_url}}/api/demandes-absence/{{demande_absence_id}}/refuser/"
+method: POST
+headers:
+  Authorization: Bearer {{token}}
+order: 9000

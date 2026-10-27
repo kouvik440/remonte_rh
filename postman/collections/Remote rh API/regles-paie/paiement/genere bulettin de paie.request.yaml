@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{Base_url}}/api/paiements/{id}/bulletin/"
+method: POST
+order: 10000

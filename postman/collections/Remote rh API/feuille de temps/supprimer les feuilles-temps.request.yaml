@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{Base_url}}/api/types-contrat/{type_contrat_id}/"
+method: DELETE
+order: 6000

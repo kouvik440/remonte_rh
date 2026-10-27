@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{Base_url}}/api/employes/1/"
+method: GET
+headers:
+  Content-Type: application/json
+  Authorization: "{{token}}"
+body:
+  type: json
+  content: ""
+order: 3000

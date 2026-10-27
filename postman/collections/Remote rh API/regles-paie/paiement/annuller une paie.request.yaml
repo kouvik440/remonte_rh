@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{Base_url}}/api/paiements/{paie_id}/annuler/"
+method: POST
+headers:
+  Authorization: "{{token}}"
+order: 6000

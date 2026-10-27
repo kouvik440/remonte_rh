@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{Base_url}}/api/roles/5/"
+method: DELETE
+headers:
+  Authorization: "{{token}}"
+  Content-Type: application/json
+body:
+  type: json
+  content: ""
+order: 5000

@@ -1,0 +1,10 @@
+$kind: http-request
+name: ajouter permission a un role
+url: "{{Base_url}}/api/roles/6/permissions/"
+method: POST
+headers:
+  Authorization: "{{token}}"
+body:
+  type: json
+  content: "{\r\n  \"permission_ids\": [60]\r\n}"
+order: 6646

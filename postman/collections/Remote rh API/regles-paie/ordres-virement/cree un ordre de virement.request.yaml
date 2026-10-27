@@ -1,0 +1,7 @@
+$kind: http-request
+url: "{{Base_url}}/api/paiements/"
+method: POST
+headers:
+  Authorization: "{{token}}"
+examples: .resources/cree un ordre de virement.resources/examples
+order: 2000

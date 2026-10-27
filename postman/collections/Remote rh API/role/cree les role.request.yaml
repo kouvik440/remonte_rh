@@ -1,0 +1,17 @@
+$kind: http-request
+url: "{{Base_url}}/api/roles/"
+method: POST
+headers:
+  Authorization: "{{token}}"
+body:
+  type: json
+  content: "{\r
+
+    \  \"nom\": \"Assistant administrateur\",\r
+
+    \  \"description\": \"un assistant\",\r
+
+    \  \"permissions\": [40]\r
+
+    }"
+order: 2000

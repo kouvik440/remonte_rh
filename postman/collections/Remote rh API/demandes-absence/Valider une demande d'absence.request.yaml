@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{Base_url}}/api/demandes-absence/1/valider/"
+method: POST
+headers:
+  Authorization: "{{token}}"
+order: 7000

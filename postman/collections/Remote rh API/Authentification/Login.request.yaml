@@ -1,0 +1,37 @@
+$kind: http-request
+url: "{{Base_url}}/api/auth/login/"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept-Language: ""
+body:
+  type: json
+  content: "{\r
+
+    \   \r
+
+    \    \"email\": \"ok@gmail.com\",\r
+
+    \    \"password\": \"123456789\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: |
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response has access and refresh tokens", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData).to.have.property('access');
+          pm.expect(jsonData).to.have.property('refresh');
+      });
+
+      pm.test("Response contains user details", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData).to.have.property('user');
+          pm.expect(jsonData.user).to.have.property('email', 'admin.rh@example.com');
+          pm.expect(jsonData.user).to.have.property('is_staff', true);
+      });
+order: 1000

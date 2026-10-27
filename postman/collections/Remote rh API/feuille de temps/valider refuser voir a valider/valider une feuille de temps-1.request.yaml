@@ -1,0 +1,7 @@
+$kind: http-request
+name: valider une feuille de temps
+url: "{{Base_url}} /api/feuilles-temps/a-valider/"
+method: POST
+headers:
+  Authorization: "{{token}}"
+order: 1401

@@ -1,0 +1,12 @@
+$kind: collection
+variables:
+  - key: Base_url
+    value: ""
+    disabled: false
+  - key: token
+    secret: true
+    disabled: false
+auth:
+  - id: a87946ea-a118-4996-94d8-09d245c51296
+    type: bearer
+    name: Bearer Token
