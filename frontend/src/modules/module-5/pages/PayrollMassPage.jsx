@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { navigate } from '../../../shared/lib/navigation.js';
 import { clearSession, getUser, hasPermission } from '../../../shared/lib/api.js';
 import MassFilters from '../components/MassFilters.jsx';
+import MassAnalytics from '../components/MassAnalytics.jsx';
 import MassTotals from '../components/MassTotals.jsx';
 import MassEvolution from '../components/MassEvolution.jsx';
 import MassBreakdown from '../components/MassBreakdown.jsx';
@@ -41,11 +42,12 @@ function MassWorkspace() {
             <button type="button" className="outline-button" disabled={busy} onClick={data.reload}>Actualiser</button>
           </div>}>
           <p className="mass-note">Seules les paies validées et payées sont incluses. Une paie payée apparaît uniquement dans les montants payés. Les brouillons, calculées et annulées sont exclus.</p>
-          <p className="mass-note">Les exports reprennent cette période, ce département et l’évolution {filters.granularity === 'annuelle' ? 'annuelle' : 'mensuelle'} sélectionnée.</p>
+          <p className="mass-note">Les exports reprennent cette période, les filtres appliqués et l’évolution {filters.granularity === 'annuelle' ? 'annuelle' : filters.granularity === 'trimestrielle' ? 'trimestrielle' : 'mensuelle'} sélectionnée.</p>
         </MassPanel>
         {exports.downloading && <p role="status">Téléchargement de l’export…</p>}
         {exports.error && <p className="message-box error" role="alert">{exports.error}</p>}
         {!data.report.totaux.paies_validees && !data.report.totaux.paies_payees && <p className="message-box" role="status">Aucune paie validée ou payée sur ce périmètre.</p>}
+        <MassAnalytics report={data.report} />
         <MassTotals totals={data.report.totaux} />
         <MassEvolution data={data.evolution} />
         <MassBreakdown title="Par département" rows={data.report.par_departement} labelKey="departement" idKey="departement_id" />

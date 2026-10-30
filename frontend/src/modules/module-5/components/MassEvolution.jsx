@@ -7,7 +7,7 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 
 export default function MassEvolution({ data }) {
   const rows = data.evolution;
-  return <MassPanel title={`Évolution ${data.granularite === 'annuelle' ? 'annuelle' : 'mensuelle'}`} description="Salaires nets, coût employeur et cotisations en XOF · périodes comportant des paies">
+  return <MassPanel title={`Évolution ${data.granularite === 'annuelle' ? 'annuelle' : data.granularite === 'trimestrielle' ? 'trimestrielle' : 'mensuelle'}`} description="Salaires nets, coût employeur et cotisations en XOF · périodes comportant des paies">
     {!rows.length ? <p className="leave-state">Aucune évolution disponible sur cette période.</p> : <>
       <p className="mass-note">Bleu : paies validées en attente de paiement. Vert : paies payées. Chaque graphique possède sa propre échelle.</p>
       <div className="mass-comparisons">{evolutionMetrics.map((metric) => <MassComparisonChart key={metric.validatedKey} rows={rows} metric={metric} />)}</div>
@@ -16,8 +16,8 @@ export default function MassEvolution({ data }) {
         <TableHeader><TableRow><TableHead scope="col">Période</TableHead><TableHead scope="col">Employés distincts</TableHead>
           {massColumns.map((column) => <TableHead scope="col" key={column.key}>{column.label}</TableHead>)}
         </TableRow></TableHeader>
-        <TableBody>{rows.map((row) => <TableRow key={row.periode || row.annee}>
-          <TableHead scope="row">{periodLabel(row.periode || row.annee)}</TableHead><TableCell>{row.employes}</TableCell>
+        <TableBody>{rows.map((row) => <TableRow key={row.periode || row.annee || row.trimestre}>
+          <TableHead scope="row">{periodLabel(row.periode || row.annee || row.trimestre)}</TableHead><TableCell>{row.employes}</TableCell>
           {massColumns.map((column) => <TableCell key={column.key}>{column.amount ? money(row[column.key]) : row[column.key]}</TableCell>)}
         </TableRow>)}</TableBody>
       </Table>

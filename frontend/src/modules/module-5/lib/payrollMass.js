@@ -7,7 +7,7 @@ export const exportTypes = {
 
 export function initialFilters() {
   const now = new Date();
-  return { start: `${now.getFullYear()}-01`, end: `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`, department: '', granularity: 'mensuelle' };
+  return { start: `${now.getFullYear()}-01`, end: `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`, department: '', employee: '', contract: '', granularity: 'mensuelle' };
 }
 
 export function validateFilters(filters) {
@@ -19,8 +19,8 @@ export function validateFilters(filters) {
   return errors;
 }
 
-export function analysisQuery({ start, end, department }, extra = {}) {
-  return new URLSearchParams({ periode_debut: start, periode_fin: end, ...(department ? { departement: department } : {}), ...extra }).toString();
+export function analysisQuery({ start, end, department, employee, contract }, extra = {}) {
+  return new URLSearchParams({ periode_debut: start, periode_fin: end, ...(department ? { departement: department } : {}), ...(employee ? { employe: employee } : {}), ...(contract ? { type_contrat: contract } : {}), ...extra }).toString();
 }
 
 export function massExportPath(filters, format) {
@@ -29,12 +29,12 @@ export function massExportPath(filters, format) {
   })}`;
 }
 
-export const money = (amount) => new Intl.NumberFormat('fr-FR', {
+export const money = (amount) => amount === null || amount === undefined ? 'Indisponible' : new Intl.NumberFormat('fr-FR', {
   style: 'currency', currency: 'XOF', minimumFractionDigits: 0, maximumFractionDigits: 2,
 }).format(amount);
 
 export function periodLabel(period) {
-  if (!period.includes('-')) return period;
+  if (!period.includes('-') || period.includes('-T')) return period;
   const [year, month] = period.split('-');
   const date = new Date(0);
   date.setFullYear(Number(year), Number(month) - 1, 1);

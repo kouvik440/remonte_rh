@@ -12,12 +12,14 @@ try {
   const { default: Lines } = await server.ssrLoadModule('/modules/module-7/components/TimesheetLines.jsx');
   const { default: Editor } = await server.ssrLoadModule('/modules/module-7/components/TimesheetEditor.jsx');
   const { default: NameForm } = await server.ssrLoadModule('/modules/module-7/components/ProjectNameForm.jsx');
+  const { default: ProjectTable } = await server.ssrLoadModule('/modules/module-7/components/ProjectTable.jsx');
+  const { default: ProjectTaskTable } = await server.ssrLoadModule('/modules/module-7/components/ProjectTaskTable.jsx');
   const { CostReconciliation } = await server.ssrLoadModule('/modules/module-7/components/TimesheetCosts.jsx');
   const { validateSheet, sheetPayload, parseDate, weekEnd, readableError, currency } = await server.ssrLoadModule('/modules/module-7/lib/timesheets.js');
   const render = (Component, props = {}) => renderToStaticMarkup(React.createElement(Component, props));
   const employeePage = render(Page);
   assert(employeePage.includes('Mes feuilles'));
-  assert(employeePage.includes('timesheets.html'));
+  assert(employeePage.includes('Feuilles de temps'));
   assert(!employeePage.includes('À valider'));
   assert(!employeePage.includes('Rapprochement des coûts'));
   assert(!employeePage.includes('Projets et affectations'));
@@ -47,6 +49,14 @@ try {
   const projectForm = render(NameForm, { title: 'Nouveau projet', path: '/api/projets/', mutation: { busy: false, error: '' } });
   assert(!projectForm.includes('>Code<'));
   assert(projectForm.includes('>Nom<'));
+  const projectTable = render(ProjectTable, { projects: [{ id: 1, nom: 'Portail RH', actif: true }], selected: '', onSelect() {} });
+  assert(projectTable.includes('<table'));
+  assert(projectTable.includes('Gérer les tâches de Portail RH'));
+  const taskTable = render(ProjectTaskTable, { tasks: [{ id: 1, nom: 'Analyse', actif: true, employes: [2] }, { id: 2, nom: 'Validation', actif: true, employes: [] }],
+    assignments: [{ employe: 2, employe_prenom: 'Aminata', employe_nom: 'Test' }], canAssign: true, canDelete: false });
+  assert(taskTable.includes('Aminata Test'));
+  assert(taskTable.includes('À affecter'));
+  assert(taskTable.includes('scope="row"'));
   const totals = { heures_validees: '3.00', heures_sans_tgm: '0.00', cout_calculable: '6000.00', cout_estime: '6000.00', cout_complet: true };
   const report = { date_debut: '2026-10-01', date_fin: '2026-10-31', totaux: totals, rapprochement: [{ ...totals, projet_id: 1, projet_code: 'P-1', projet_nom: 'Projet', employe_id: 1, employe_prenom: 'Test', employe_nom: 'Exemple', periode: '2026-10', taux_horaire_charge: '2000.00' }] };
   const costs = render(CostReconciliation, { report });

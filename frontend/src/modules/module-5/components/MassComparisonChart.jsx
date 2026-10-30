@@ -16,14 +16,14 @@ export default function MassComparisonChart({ rows, metric }) {
             <text x="115" y={y + 4} textAnchor="end">{money(maximum * step / 3)}</text>
           </g>;
         })}
-        {rows.map((row, index) => <PeriodBars key={row.periode || row.annee} row={row} index={index} metric={metric} maximum={maximum} />)}
+        {rows.map((row, index) => <PeriodBars key={row.periode || row.annee || row.trimestre} row={row} index={index} metric={metric} maximum={maximum} />)}
       </svg>
     </div>
   </figure>;
 }
 
 function PeriodBars({ row, index, metric, maximum }) {
-  const period = row.periode || row.annee;
+  const period = row.periode || row.annee || row.trimestre;
   const validated = Number(row[metric.validatedKey]) / maximum * 150;
   const paid = Number(row[metric.paidKey]) / maximum * 150;
   const center = index * 130 + 185;

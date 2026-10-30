@@ -159,7 +159,6 @@ export default function EmployeesPage() {
     }
 
     const payload = {
-      matricule: form.matricule.trim(),
       nom: form.nom.trim(),
       prenom: form.prenom.trim(),
       email: form.email.trim(),
@@ -400,7 +399,7 @@ export default function EmployeesPage() {
               <fieldset className="employee-form-fields" disabled={saving}>
                 <div className="form-section-title"><span>01</span><div><strong>Informations personnelles</strong><small>Identité et coordonnées de l’employé</small></div></div>
                 <div className="form-grid">
-                  <Field label="Matricule" name="matricule" value={form.matricule} onChange={updateField} required placeholder="Ex. EMP-001" errors={fieldErrors} />
+                  <div className="form-field"><label htmlFor="employee-auto-number">Matricule</label><input id="employee-auto-number" value={editingId ? form.matricule : ''} placeholder="Généré automatiquement à l’enregistrement" readOnly /><small>Attribué automatiquement et conservé pour cet employé.</small></div>
                   <Field label="Statut" name="statut" value={form.statut} onChange={updateField} type="select" options={ [['ACTIF','Actif'],['INACTIF','Inactif'],['SUSPENDU','Suspendu']] } />
                   <Field label="Nom" name="nom" value={form.nom} onChange={updateField} required errors={fieldErrors} />
                   <Field label="Prénom" name="prenom" value={form.prenom} onChange={updateField} required errors={fieldErrors} />

@@ -10,9 +10,7 @@ export function fieldsFor(kind, { employees }, editing) {
   const employeeOptions = employees.map((employee) => ({ value: employee.id, label: `${employee.prenom} ${employee.nom} · ${employee.matricule}` }));
   return [
     { name: 'banque', label: 'Banque', required: true, maxLength: 100 },
-    { name: 'iban', label: 'RIB / IBAN', required: true, maxLength: 34 },
-    { name: 'bic', label: 'BIC', maxLength: 11 },
-    { name: 'swift', label: 'SWIFT', maxLength: 11 },
+    { name: 'iban', label: 'RIB', required: true, maxLength: 34 },
     ...(!editing && hasPermission('coordonnees_bancaires.manage') ? [
       { name: 'employe', label: 'Employé', type: 'select', required: true, options: employeeOptions },
     ] : []),

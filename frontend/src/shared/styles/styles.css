@@ -1202,3 +1202,26 @@ select {
   .stats-grid .stat-card:nth-child(-n+2) { border-bottom: 1px solid var(--app-line); }
 }
 @media (prefers-reduced-motion: reduce) { .hr-app *, .hr-app *::before, .hr-app *::after { scroll-behavior: auto; transition: none; animation: none; } }
+/* Analytics reuse the existing payroll palette and theme tokens. */
+.mass-workspace { --mass-chart-primary: #5474d7; --mass-chart-secondary: #36a474; }
+:root[data-theme="dark"] .mass-workspace { --mass-chart-primary: #94ade1; --mass-chart-secondary: #7fc69a; }
+.mass-analytics-kpis { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+.mass-kpi-value { font-size:24px; font-weight:500; margin:0 0 12px; color:var(--ui-foreground); overflow-wrap:anywhere; font-variant-numeric:tabular-nums; }
+.mass-analytics-charts { display:grid; grid-template-columns:2fr 1fr; gap:18px; min-width:0; }
+.mass-trend-chart svg { width:100%; height:auto; color:var(--ui-muted-foreground); fill:var(--ui-muted-foreground); font-size:12px; }
+.mass-series-0 { color:var(--mass-chart-primary); }
+.mass-series-1 { color:var(--mass-chart-secondary); }
+.mass-series-2 { color:var(--ui-foreground); }
+.mass-series-3 { color:var(--ui-muted-foreground); }
+.mass-segment-0 { stroke:var(--mass-chart-primary); }
+.mass-segment-1 { stroke:var(--mass-chart-secondary); }
+.mass-segment-2 { stroke:var(--ui-foreground); }
+.mass-segment-3 { stroke:var(--ui-muted-foreground); }
+.mass-segment-4 { stroke:var(--ui-border); }
+.mass-donut { width:100%; max-height:200px; }
+.mass-donut-legend { margin:12px 0 0; padding-left:18px; font-size:12px; line-height:1.8; color:var(--ui-foreground); }
+.mass-table-tools { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-bottom:14px; }
+.mass-table-tools label { display:flex; gap:8px; align-items:center; }
+.mass-table-tools input { max-width:230px; }
+@container (max-width:900px) { .mass-analytics-kpis { grid-template-columns:repeat(2,minmax(0,1fr)); } .mass-analytics-charts { grid-template-columns:1fr; } }
+@container (max-width:540px) { .mass-analytics-kpis { grid-template-columns:1fr; } }

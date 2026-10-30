@@ -13,6 +13,7 @@ globalThis.localStorage = {
 const server = await createServer({ server: { middlewareMode: true }, optimizeDeps: { noDiscovery: true } });
 try {
   const { default: Page } = await server.ssrLoadModule('/modules/module-5/pages/PayrollMassPage.jsx');
+  const { default: Analytics } = await server.ssrLoadModule('/modules/module-5/components/MassAnalytics.jsx');
   const { default: Totals } = await server.ssrLoadModule('/modules/module-5/components/MassTotals.jsx');
   const { default: Evolution } = await server.ssrLoadModule('/modules/module-5/components/MassEvolution.jsx');
   const { default: Breakdown } = await server.ssrLoadModule('/modules/module-5/components/MassBreakdown.jsx');
@@ -24,7 +25,7 @@ try {
   assert(!render(Page).includes('payroll-mass.html'));
   permissions = ['paie.read'];
   const page = render(Page);
-  assert(page.includes('payroll-mass.html'));
+  assert(page.includes('mass-workspace'));
   assert(page.includes('Afficher l’analyse'));
   assert(page.includes('Chargement de l’analyse'));
   assert(!page.includes('Nouvelle paie'));
@@ -40,7 +41,7 @@ try {
   const filterMarkup = render(Filters, { applied: filters, departments: [{ id: 7, nom: 'Direction RH' }], canReadDepartments: true, departmentError: '', busy: false, onApply() {} });
   assert.equal((filterMarkup.match(/role="combobox"/g) || []).length, 2);
   const labels = [...filterMarkup.matchAll(/<label[^>]*for="([^"]+)"/g)].map((match) => match[1]);
-  assert.equal(labels.length, 2);
+  assert.equal(labels.length, 6);
   for (const id of labels) assert(filterMarkup.includes(`id="${id}"`));
   assert(filterMarkup.includes('data-slot="card"'));
   assert(validateFilters({ ...filters, start: '2027-01' }).end);
@@ -76,6 +77,16 @@ try {
     const breakdown = render(Breakdown, { title, rows: [{ ...totals, [labelKey]: 'Administration', [idKey]: '7' }], labelKey, idKey });
     for (const text of ['Brut validé', 'Brut payé', 'Cotisations validées', 'Cotisations payées', money('123.00'), money('234.00')]) assert(breakdown.includes(text), text);
   }
+  const quarter = render(Evolution, { data: { granularite: 'trimestrielle', evolution: [{ ...totals, trimestre: '2026-T4', employes: 2 }] } });
+  assert(quarter.includes('2026-T4') && !quarter.includes('NaN'));
+  const indicators = { brut:'357.00', net:'333.75', cout_employeur:'412.00', charges_patronales:'55.00', cotisations_salariales:null, cout_moyen_employe:'206.00', employes:2 };
+  const analytics = render(Analytics, { report: { indicateurs:indicators, comparaison:{periode_debut:'2025-01',periode_fin:'2025-12',variations:{brut:{ecart:'50.00',taux:'16.29'},cotisations_salariales:{ecart:null,taux:null}}}, evolution_mensuelle:[{...totals,periode:'2026-10'}], par_departement:[{...totals,departement:'RH'}] } });
+  assert(analytics.includes('16,29 %'));
+  assert(analytics.includes('Indisponible'));
+  assert(!analytics.includes('NaN') && !analytics.includes('Infinity'));
+  const extendedQuery = new URLSearchParams(analysisQuery({...filters,employee:'9',contract:'3'}));
+  assert.equal(extendedQuery.get('employe'),'9');
+  assert.equal(extendedQuery.get('type_contrat'),'3');
   let clicked = 0;
   const calls = [];
   globalThis.document = { createElement: () => ({ click() { clicked++; }, remove() {} }), body: { append() {} } };
@@ -87,7 +98,7 @@ try {
     await downloadApiFile(massExportPath({ ...filters, granularity }, format), `test.${format}`, contentType);
     assert.equal(calls.at(-1).options.headers.Authorization, 'Bearer test-access');
     assert.equal(calls.at(-1).options.headers.Accept, '*/*');
-    const exportQuery = new URL(calls.at(-1).url).searchParams;
+    const exportQuery = new URL(calls.at(-1).url, 'http://127.0.0.1').searchParams;
     assert.equal(exportQuery.get('granularite'), granularity);
     assert.equal(exportQuery.get('departement'), '7');
   }

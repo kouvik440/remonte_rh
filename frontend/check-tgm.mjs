@@ -17,7 +17,7 @@ try {
   assert(render(Page).includes('permission paie.read'));
   assert(!render(Page).includes('href="/pages/tgm.html"'));
   permissions = ['paie.read'];
-  assert(render(Page).includes('href="/pages/tgm.html"'));
+  assert(render(Page).includes('Taux journalier et horaire moyen'));
   assert(render(Page).includes('Chargement des taux'));
   assert.deepEqual(validatePeriod({ start: '2026-01', end: '2026-10' }), {});
   assert(validatePeriod({ start: '2026-11', end: '2026-10' }).end);
@@ -42,5 +42,27 @@ try {
   assert(simulation.includes('Chiffre d’affaires de la période (XOF)'));
   assert(simulation.includes('Calculer la marge'));
   assert(render(Simulation, { projects: [], period: {} }).includes('nécessite un projet'));
+  const { default: Overview } = await server.ssrLoadModule('/modules/module-6/components/TgmOverview.jsx');
+  const { default: ProductiveSimulation } = await server.ssrLoadModule('/modules/module-6/components/TgmProductiveSimulation.jsx');
+  const filtered = new URLSearchParams(reportPaths({ start: '2026-01', end: '2026-10', department: '3', employee: '4' }).rates.split('?')[1]);
+  assert.equal(filtered.get('departement'), '3');
+  assert.equal(filtered.get('employe'), '4');
+  const department = { departement_id: 1, departement: 'Finance', devise: 'XOF', employes: 2,
+    cout_charge_total: '22000', taux_journalier_charge: '1000', taux_horaire_charge: null };
+  const overview = render(Overview, { report: { par_departement: [department] } });
+  assert(overview.includes('Finance'));
+  assert(overview.includes('Indisponible'));
+  assert(overview.includes('mass-bar-validated'));
+  assert(!overview.includes('NaN'));
+  assert.equal(render(Overview, { report: { par_departement: [] } }), '');
+  assert(employees.includes('Rechercher'));
+  assert(employees.includes('Pagination'));
+  assert(employees.includes('Trier par'));
+  const productive = render(ProductiveSimulation, { period: { start: '2026-01', end: '2026-10' }, employees: [row] });
+  assert(productive.includes('Jours productifs'));
+  assert(productive.includes('Heures productives'));
+  assert(productive.includes('max="100000"'));
+  assert(productive.includes('TGM-001'));
+  assert(render(ProductiveSimulation, { period: {}, employees: [] }).includes('Aucun employé'));
   console.log('Module 6 : permissions, périodes, calendrier, taux, coûts incomplets et simulation vérifiés.');
 } finally { await server.close(); }

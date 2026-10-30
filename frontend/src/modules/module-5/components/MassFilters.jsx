@@ -23,8 +23,10 @@ export default function MassFilters({ applied, departments, canReadDepartments, 
       <MassSelect label="Département" value={draft.department || 'all'} options={departmentOptions} disabled={!canReadDepartments || busy}
         onChange={(department) => setDraft((value) => ({ ...value, department: department === 'all' ? '' : department }))} />
       <MassSelect label="Évolution" value={draft.granularity} disabled={busy}
-        options={[{ value: 'mensuelle', label: 'Par mois' }, { value: 'annuelle', label: 'Par année' }]}
+        options={[{ value: 'mensuelle', label: 'Par mois' }, { value: 'trimestrielle', label: 'Par trimestre' }, { value: 'annuelle', label: 'Par année' }]}
         onChange={(granularity) => setDraft((value) => ({ ...value, granularity }))} />
+      <FormField label="Identifiant employé">{(a11y) => <input {...a11y} type="number" min="1" step="1" value={draft.employee || ''} onChange={change('employee')} placeholder="Tous les employés" />}</FormField>
+      <FormField label="Identifiant type de contrat">{(a11y) => <input {...a11y} type="number" min="1" step="1" value={draft.contract || ''} onChange={change('contract')} placeholder="Tous les contrats" />}</FormField>
       <button className="primary-button" type="submit" disabled={busy}>Afficher l’analyse</button>
     </form>
     {departmentError && <p className="message-box error" role="alert">Départements indisponibles : {departmentError}</p>}
